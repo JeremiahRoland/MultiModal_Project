@@ -9,6 +9,7 @@ pandas = "*"
 sklearn = "*"
 matplotlib = "*"
 statsmodels = "*"
+seaborn = "*"
 
 [dev-packages]
 "autopep8" = "*"
