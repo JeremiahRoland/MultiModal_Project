@@ -10,6 +10,9 @@ sklearn = "*"
 matplotlib = "*"
 statsmodels = "*"
 seaborn = "*"
+ggplot = "*"
+gmplot = "*"
+"bs4" = "*"
 
 [dev-packages]
 "autopep8" = "*"
