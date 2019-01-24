@@ -1,31 +1,45 @@
 import gmplot
 import pandas
 from bs4 import BeautifulSoup
+from shapely.geometry.polygon import Polygon
+import math
 
 apikey = "AIzaSyB9SbDxFzEubEN3icbAce4T2U262jskSlg"
 
-
-stops = pandas.read_csv("../Data/Bus/Stats/stops.csv", sep=",")
-routes = pandas.read_csv("../Data/Bus/Stats/routes.csv", sep=",")
-shapes = pandas.read_csv("../Data/Bus/Stats/shapes.csv", sep=",")
-
+route = pandas.read_csv("../Data/Bus/Routes/route34.csv", sep=",")
+# stops = pandas.read_csv("../Data/Bus/Stats/stops.csv", sep=",")
+# routes = pandas.read_csv("../Data/Bus/Stats/routes.csv", sep=",")
+# shapes = pandas.read_csv("../Data/Bus/Stats/shapes.csv", sep=",")
+# bikes = pandas.read_csv("../Data/Bike_Data.csv", sep=",")
 gmap = gmplot.GoogleMapPlotter(35.050597, -85.250439, 12, apikey=apikey)
-
+print(route.dtypes)
 def map_stops(gmap):
-    latcoords = []  # Weather station latitudes
-    longcoords = []  # Weather station longitudes
-    coords = []  # Weather station coordinates
+    latcoords = []  #  shape latitudes
+    longcoords = []  #  shape longitudes
+    coords = []  #  shape coordinates
 
-    # Placing the weather station coordinates into lists
-    for i, value in enumerate(stops.values):
-        coords.append(str(stops.stop_lat[i]) + "," + str(stops.stop_lon[i]))
-        latcoords.append((stops.stop_lat[i]))
-        longcoords.append((stops.stop_lon[i]))
+    # Placing the shape coordinates into lists
+    for i, value in enumerate(route.values):
+        # print(route.Latitude.values[i], route.Latitude.values[i+1] )
+        latchange = math.fabs(route.Latitude.values[i] - route.Latitude.values[i+1])
+        longchange = math.fabs(route.Longitude.values[i] - route.Longitude.values[i+1])
+        if latchange < 0.01 and longchange < 0.01:
+            coords.append(str(route.Latitude[i]) + "," + str(route.Longitude[i]))
+            latcoords.append((route.Latitude[i]))
+            longcoords.append((route.Longitude[i]))
+        else:
+            break
+    # exit()
+    # for i, value in enumerate(route.values):
+    #     coords.append(str(route.Latitude[i]) + "," + str(route.Longitude[i]))
+    #     latcoords.append((route.Latitude[i]))
+    #     longcoords.append((route.Longitude[i]))
 
     # Placing all the weather station pins on the map, marked by cyan pin
-    for i, value in enumerate(latcoords[0:len(latcoords)]):
-        gmap.marker(latcoords[i], longcoords[i], 'c', title=stops.stop_name.values[i])
+    # for i, value in enumerate(latcoords[0:100]):
+    #     gmap.marker(latcoords[i], longcoords[i], 'c')
 
-    gmap.draw("../Visualization_Output/Chattanooga Bus Stations.html")
+    gmap.plot(latcoords, longcoords, 'cornflowerblue', edge_width=5)
+    gmap.draw("../Visualization_Output/Chattanooga Route 34.html")
 
-map_stops(gmap)
+# map_stops(gmap)

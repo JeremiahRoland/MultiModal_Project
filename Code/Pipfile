@@ -13,6 +13,9 @@ seaborn = "*"
 ggplot = "*"
 gmplot = "*"
 "bs4" = "*"
+numpy = "*"
+"beautifulsoup4" = "*"
+shapely = "*"
 
 [dev-packages]
 "autopep8" = "*"
