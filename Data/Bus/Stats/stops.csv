@@ -1,4 +1,4 @@
-stop_id,stop_code,stop_name,stop_lat,stop_lon
+stop_id,stop_code,stop_name,Latitude,Longitude
 12,12,MARKET + FAMILY DOLLAR,35.0507,-85.30953
 17,17,MARKET + 11TH,35.04425,-85.30944
 18,18,MARKET + 12TH,35.04235,-85.30907
